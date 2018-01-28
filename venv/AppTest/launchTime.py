@@ -22,23 +22,20 @@ class Browser(object):
         cmd = 'adb shell dumpsys cpuinfo | grep com.qihoo.contents'
         output = os.popen(cmd)
         for line in output.readlines():
-            return re.search(r'(\d+)%\s*\d+/com.qihoo.contents:',line,flags=0).group(1)
-    
+            return re.search(r'(\d+)%\s*\d+/com.qihoo.contents:', line, flags=0).group(1)
+
     def get_meminfo(self):
         cmd = 'adb shell top -d 1| grep com.qihoo.contents > meminfo.txt'
-        os.popen(cmd)             
-        meminfo_value = [('id','vss','rss')]
-        meminfo_file = file('meminfo.txt','r')
+        os.popen(cmd)
+        meminfo_value = [('id', 'vss', 'rss')]
+        meminfo_file = file('meminfo.txt', 'r')
         i = 1;
         results = meminfo_file.readlines()
         for r in results:
             if r.endswith('com.qihoo.contents'):
-                meminfo_value.append((i,r.split()[5].strip('K')),r.split()[6].strip('K'))
+                meminfo_value.append((i, r.split()[5].strip('K')), r.split()[6].strip('K'))
                 i = i + 1
         meminfo_file.close()
-            
-        
-            
 
 
 class Controller(object):

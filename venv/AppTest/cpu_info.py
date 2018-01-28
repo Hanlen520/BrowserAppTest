@@ -15,14 +15,14 @@ class Browser(object):
 
 
 class Controller(object):
-    def __init__(self, count,interval):
+    def __init__(self, count, interval):
         self.browser = Browser()
         self.count = count
         self.interval = interval
         self.data = [('time', 'cpu_info')]
 
     def test(self):
-        self.data.append((self.cur_time(),self.browser.get_cpu_info()))
+        self.data.append((self.cur_time(), self.browser.get_cpu_info()))
 
     def cur_time(self):
         return time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime())
@@ -43,6 +43,6 @@ class Controller(object):
 if __name__ == "__main__":
     os.popen('adb kill-server')
     os.popen('adb start-server')
-    controaller = Controller(20,2)
+    controaller = Controller(20, 2)
     controaller.run()
     controaller.sava_data()
